@@ -1,0 +1,84 @@
+{
+  "name": "base-backend",
+  "version": "1.0.0",
+  "description": "Base backend",
+  "main": "src/application/index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node src/application/server",
+    "start-dev": "DEBUG=app:* nodemon src/application/server",
+    "startdev": "DEBUG=app:* nodemon src/application/server",
+    "dev": "DEBUG=app:* nodemon src/application/server",
+    "secure": "NODE_ENV=secure DEBUG=app:* nodemon src/application/server",
+    "test": "npm run setup && npm run seeders && npm run test-db && npm run test-domain",
+    "test-db": "ava src/infrastructure/tests/ --verbose",
+    "test-domain": "ava src/domain/tests/ --verbose",
+    "test-common": "DEBUG=app:* ava src/common/tests/ --verbose",
+    "setup": "DEBUG=app:* node src/infrastructure/setup.js",
+    "seeders": "sequelize db:seed:all --seeders-path src/infrastructure/seeders --config src/infrastructure/lib/config-seeders.js",
+    "seeders-migrations": "sequelize db:migrate --migrations-path src/infrastructure/seeders-migrations --config src/infrastructure/lib/config-seeders.js",
+    "seeders-prod": "NODE_ENV=production npm run seeders",
+    "cron": "node cronjob/test",
+    "lint": "semistandard"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "node_modules/*",
+      "src/infrastructure/seeders*"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.agetic.gob.bo/agetic/base-backend.git"
+  },
+  "keywords": [
+    "Módulo",
+    "usuario"
+  ],
+  "author": "Omar Gutiérrez Condori <ogutierrez@agetic.gob.bo>",
+  "license": "LPG Bolivia v1.0",
+  "dependencies": {
+    "amqplib": "^0.5.5",
+    "apollo-server-express": "^2.9.12",
+    "app-iop": "git+https://gitlab.softwarelibre.gob.bo/agetic/app-iop.git",
+    "app-logs": "^2.0.0",
+    "app-notificaciones": "git+https://gitlab.softwarelibre.gob.bo/agetic/app-notificaciones.git",
+    "app-params": "^0.2.5",
+    "asyncawait": "^3.0.0",
+    "axios": "^0.19.1",
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "casual": "^1.6.2",
+    "chalk": "^3.0.0",
+    "cors": "^2.8.5",
+    "csvtojson": "^2.0.10",
+    "defaults": "^1.0.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
+    "express-jwt": "^5.3.1",
+    "express-jwt-permissions": "^1.3.2",
+    "geoip-lite": "^1.3.8",
+    "graphql": "^14.5.8",
+    "graphql-tools": "^4.0.6",
+    "inquirer": "^7.0.0",
+    "intl": "^1.2.5",
+    "intl-messageformat": "^7.5.6",
+    "jsonwebtoken": "^8.5.1",
+    "minimist": "^1.2.0",
+    "moment": "^2.24.0",
+    "nodemailer": "^6.3.1",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "openid-client": "^3.8.3",
+    "pg": "^7.14.0",
+    "pg-hstore": "^2.3.3",
+    "request": "^2.88.0",
+    "sequelize": "^5.21.2",
+    "sequelize-cli": "^5.5.1",
+    "validate.js": "^0.13.1"
+  },
+  "devDependencies": {
+    "ava": "^1.4.1",
+    "nodemon": "^2.0.1",
+    "semistandard": "^13.0.1"
+  }
+}
